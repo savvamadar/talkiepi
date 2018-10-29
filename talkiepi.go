@@ -29,7 +29,7 @@ type Talkiepi struct {
 
 	Stream *gumbleopenal.Stream
 
-	ChannelNameT    string
+	ChannelName    string
 	IsConnected    bool
 	IsTransmitting bool
 
