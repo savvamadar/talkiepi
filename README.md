@@ -3,6 +3,11 @@
 talkiepi is a headless capable Mumble client written in Go, written for walkie talkie style use on the Pi using GPIO pins for push to talk and LED status.  This fork is made to add 2 new flags voiceon and usegpio. By default this fork doesn't initialize the Gpio.
 
 
+## Sample run command
+
+./talkiepi -server talkiepi.projectable.me:64738 -username TPI -insecure -voiceon
+
+
 ## 3D printable enclosure
 
 In the stl directory are the stl files for the enclosure I have designed specifically for the Raspberry Pi B+ board layout (I am using a Raspberry Pi 3 Model B) and the PCB and components from the [US Robotics USB Speakerphone](https://www.amazon.com/USRobotics-USB-Internet-Speakerphone-USR9610/dp/B000E6IL10/ref=sr_1_1?ie=UTF8&qid=1472691020&sr=8-1&keywords=us+robotics+speakerphone).
