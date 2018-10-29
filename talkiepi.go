@@ -21,6 +21,8 @@ type Talkiepi struct {
 	Client *gumble.Client
 
 	Address   string
+	VoiceOn   bool
+	UseGpio    bool
 	TLSConfig tls.Config
 
 	ConnectAttempts uint

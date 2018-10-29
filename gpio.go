@@ -10,43 +10,53 @@ import (
 
 func (b *Talkiepi) initGPIO() {
 	// we need to pull in rpio to pullup our button pin
+	b.GPIOEnabled = b.UseGpio
 	if err := rpio.Open(); err != nil {
 		fmt.Println(err)
 		b.GPIOEnabled = false
-		return
-	} else {
-		b.GPIOEnabled = true
+		//return
 	}
+
+	if b.VoiceOn {
+		b.TransmitStart()
+	}
+
+	if b.GPIOEnabled == false {
+		return
+	}
+
 
 	ButtonPinPullUp := rpio.Pin(ButtonPin)
 	ButtonPinPullUp.PullUp()
 
 	rpio.Close()
 
-	// unfortunately the gpio watcher stuff doesnt work for me in this context, so we have to poll the button instead
-	b.Button = gpio.NewInput(ButtonPin)
-	go func() {
-		for {
-			currentState, err := b.Button.Read()
+	if b.VoiceOn == false {
+		// unfortunately the gpio watcher stuff doesnt work for me in this context, so we have to poll the button instead
+		b.Button = gpio.NewInput(ButtonPin)
+		go func() {
+			for {
+				currentState, err := b.Button.Read()
 
-			if currentState != b.ButtonState && err == nil {
-				b.ButtonState = currentState
+				if currentState != b.ButtonState && err == nil {
+					b.ButtonState = currentState
 
-				if b.Stream != nil {
-					if b.ButtonState == 1 {
-						fmt.Printf("Button is released\n")
-						b.TransmitStop()
-					} else {
-						fmt.Printf("Button is pressed\n")
-						b.TransmitStart()
+					if b.Stream != nil {
+						if b.ButtonState == 1 {
+							fmt.Printf("Button is released\n")
+							b.TransmitStop()
+						} else {
+							fmt.Printf("Button is pressed\n")
+							b.TransmitStart()
+						}
 					}
+
 				}
 
+				time.Sleep(500 * time.Millisecond)
 			}
-
-			time.Sleep(500 * time.Millisecond)
-		}
-	}()
+		}()
+	}
 
 	// then we can do our gpio stuff
 	b.OnlineLED = gpio.NewOutput(OnlineLEDPin, false)

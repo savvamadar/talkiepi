@@ -15,12 +15,14 @@ import (
 
 func main() {
 	// Command line flags
-	server := flag.String("server", "talkiepi.projectable.me:64738", "the server to connect to")
+	server := flag.String("server", "localhost:64738", "the server to connect to")
 	username := flag.String("username", "", "the username of the client")
 	password := flag.String("password", "", "the password of the server")
-	insecure := flag.Bool("insecure", true, "skip server certificate verification")
+	insecure := flag.Bool("insecure", false, "skip server certificate verification")
 	certificate := flag.String("certificate", "", "PEM encoded certificate and private key")
-	channel := flag.String("channel", "talkiepi", "mumble channel to join by default")
+	channel := flag.String("channel", "", "mumble channel to join by default")
+	usegpio := flag.Bool("usegpio", false, "whether to use gpio")
+	voiceon := flag.Bool("voiceon", false, "whether to have the voice input on by default")
 
 	flag.Parse()
 
@@ -29,6 +31,8 @@ func main() {
 		Config:      gumble.NewConfig(),
 		Address:     *server,
 		ChannelName: *channel,
+		VoiceOn:     *voiceon,
+		UseGpio:     *usegpio,
 	}
 
 	// if no username specified, lets just autogen a random one
