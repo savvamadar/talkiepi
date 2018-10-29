@@ -22,14 +22,14 @@ type Talkiepi struct {
 
 	Address   string
 	VoiceOn   bool
-	UseGpio    bool
+	UseGpio   bool
 	TLSConfig tls.Config
 
 	ConnectAttempts uint
 
 	Stream *gumbleopenal.Stream
 
-	ChannelName    string
+	ChannelNameT    string
 	IsConnected    bool
 	IsTransmitting bool
 
