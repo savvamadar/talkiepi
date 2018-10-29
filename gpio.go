@@ -13,19 +13,22 @@ func (b *Talkiepi) initGPIO() {
 	b.GPIOEnabled = b.UseGpio
 	if err := rpio.Open(); err != nil {
 		fmt.Println(err)
+		fmt.Printf("Unable to turn on GPIO\n")
 		b.GPIOEnabled = false
 		//return
 	}
 
 	if b.VoiceOn {
+		fmt.Printf("Start transmit\n")
 		b.TransmitStart()
 	}
 
 	if b.GPIOEnabled == false {
+		fmt.Printf("Disabling GPIO\n")
 		return
 	}
 
-
+	fmt.Printf("Enabling GPIO\n")
 	ButtonPinPullUp := rpio.Pin(ButtonPin)
 	ButtonPinPullUp.PullUp()
 

@@ -83,12 +83,12 @@ func (b *Talkiepi) TransmitStart() {
 	if b.IsConnected == false {
 		return
 	}
-
+	fmt.Printf("Started mic\n")
 	b.IsTransmitting = true
 
 	// turn on our transmit LED
 	b.LEDOn(b.TransmitLED)
-
+	
 	b.Stream.StartSource()
 }
 
