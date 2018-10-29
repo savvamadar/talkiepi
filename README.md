@@ -1,8 +1,6 @@
 # talkiepi
-![assembled1](doc/talkiepi_assembled_1.jpg "Assembled talkiepi 1")
-![assembled2](doc/talkiepi_assembled_2.jpg "Assembled talkiepi 2")
 
-talkiepi is a headless capable Mumble client written in Go, written for walkie talkie style use on the Pi using GPIO pins for push to talk and LED status.  It is a fork of [barnard](https://github.com/layeh/barnard), which was a great jump off point for me to learn golang and have something that worked relatively quickly.
+talkiepi is a headless capable Mumble client written in Go, written for walkie talkie style use on the Pi using GPIO pins for push to talk and LED status.  This fork is made to add 2 new flags voiceon and usegpio. By default this fork doesn't initialize the Gpio.
 
 
 ## 3D printable enclosure
@@ -43,6 +41,7 @@ MPL 2.0
 
 ## Author
 
+- fork - [Savva Madar](https://github.com/savvamadar/talkiepi)
 - talkiepi - [Daniel Chote](https://github.com/dchote)
 - Barnard,Gumble Author - Tim Cooper (<tim.cooper@layeh.com>)
 

@@ -5,42 +5,31 @@ This is a simple overview to scratch install talkiepi on your Raspberry Pi, and 
 This document assumes that you have raspbian-stretch-lite installed on your SD card, and that the distribution is up to date.
 This document also asumes that you have already configured network/wifi connectivity on your Raspberry Pi.
 
-By default talkiepi will run without any arguments, it will autogenerate a username and then connect to my mumble server.
+By default talkiepi will run without any arguments, it will autogenerate a username and then connect to a local server.
 You can change this behavior by appending commandline arguments of `-server YOUR_SERVER_ADDRESS`, `-username YOUR_USERNAME` to the ExecStart line in `/etc/systemd/system/mumble.service` once installed.
 
-talkiepi will also accept arguments for `-password`, `-insecure`, `-certificate` and `-channel`, all defined in `cmd/talkiepi/main.go`, if you run your own mumble server, these will be self explanatory.
-
-
-## Create a user
-
-As root on your Raspberry Pi (`sudo -i`), create a mumble user:
-```
-adduser --disabled-password --disabled-login --gecos "" mumble
-usermod -a -G cdrom,audio,video,plugdev,users,dialout,dip,input,gpio mumble
-```
+talkiepi will also accept arguments for `-password`, `-insecure`, `-certificate`, `-channel`, `voiceon`, `usegpio` all defined in `cmd/talkiepi/main.go`, if you run your own mumble server, these will be self explanatory.
 
 ## Install
 
-As root on your Raspberry Pi (`sudo -i`), install golang and other required dependencies, then build talkiepi:
+Install golang and other required dependencies, then build talkiepi:
 ```
 apt-get install golang libopenal-dev libopus-dev git
 
-su mumble
+mkdir $HOME/go
+mkdir $HOME/go/bin
 
-mkdir ~/gocode
-mkdir ~/bin
-
-export GOPATH=/home/mumble/gocode
-export GOBIN=/home/mumble/bin
+export GOPATH=$HOME/go
+export GOBIN=$HOME/go/bin
 
 cd $GOPATH
 
 go get github.com/dchote/gopus
-go get github.com/dchote/talkiepi
+go get github.com/savvamadar/talkiepi
 
-cd $GOPATH/src/github.com/dchote/talkiepi
+cd $GOPATH/src/github.com/savvamadar/talkiepi
 
-go build -o /home/mumble/bin/talkiepi cmd/talkiepi/main.go 
+go build -o $GOBIN/talkiepi cmd/talkiepi/main.go 
 ```
 
 
